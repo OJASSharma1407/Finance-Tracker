@@ -1,0 +1,60 @@
+{% extends 'tracker_base.html' %}
+{% load static %}
+
+{% block Css %}
+<link rel="stylesheet" href="{% static css %}">
+{% endblock %}
+
+{% block content %}
+            
+<div class="form-container">
+    <h2>Add New Transaction</h2>
+    <form method="POST">
+      {% csrf_token %}
+      
+      <label for="amount">Amount (₹)</label>
+      <input type="number" step="0.01" name="amount" id="amount" required>
+
+      <label for="transaction_type">Transaction Type</label>
+      <select name="transaction_type" id="transaction_type" required>
+        <option value="Income">Income</option>
+        <option value="Expense">Expense</option>
+      </select>
+
+      <label for="category">Category</label>
+      <select name="category" id="category" required>
+        <!-- Options will be injected dynamically -->
+      </select>
+
+      <button type="submit">Add Transaction</button>
+    </form>
+  </div>
+
+  <script>
+    const incomeCategories = ["Salary", "Freelancing", "Investment"];
+    const expenseCategories = ["Subscription", "Groceries", "Transportation", "Entertainment", "Rent"];
+
+    const typeSelect = document.getElementById("transaction_type");
+    const categorySelect = document.getElementById("category");
+
+    function populateCategories(type) {
+      categorySelect.innerHTML = "";
+      const categories = type === "Income" ? incomeCategories : expenseCategories;
+      categories.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.textContent = cat;
+        categorySelect.appendChild(option);
+      });
+    }
+
+    // Initial population
+    populateCategories(typeSelect.value);
+
+    // Change on selection
+    typeSelect.addEventListener("change", (e) => {
+      populateCategories(e.target.value);
+    });
+  </script>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'tracker_base.html' %}
+{% load static %}
+
+{% block Css %}
+<link rel="stylesheet" href="{% static css %}">
+{% endblock %}
+
+
+
+{% block content %}
+
+ <section class="summary-section">
+    <div class="card balance">
+      <div class="card-icon">💰</div>
+      <h3>Total Balance</h3>
+      <p>₹{{dashboard.balance}}</p>
+    </div>
+    <div class="card income">
+      <div class="card-icon">📈</div>
+      <h3>Total Income</h3>
+      <p>₹{{dashboard.income}}</p>
+    </div>
+    <div class="card expense">
+      <div class="card-icon">💸</div>
+      <h3>Total Expenses</h3>
+      <p>₹{{dashboard.expense}}</p>
+    </div>
+  </section>
+
+<div class="transactions-section">
+  <h2>Recent Transactions</h2>
+  <table class="transaction-table">
+  
+    <tr class="transaction-header">
+      <th>Date</th>
+      <th>Category</th>
+      <th>Type</th>
+      <th>Amount</th>
+    </tr>
+  <tbody>
+  {% if transactions|length == 0 %}
+    <tr>
+      <td colspan="4" style="text-align: center; color: gray; font-style: italic;">
+        No transactions yet
+      </td>
+    </tr>
+  {% else %}
+    {% for t in transactions|slice:":5" %}
+      <tr class="transaction-row">
+        <td>{{ t.date }}</td>
+        <td>{{ t.catagory }}</td>
+        {% if t.transaction_type == 'Expense' %}
+          <td class="type trans-expense">Expense</td>
+        {% else %}
+          <td class="type trans-income">Income</td>
+        {% endif %}
+        {% if t.transaction_type == 'Expense' %}
+          <td class="amount trans-expense">- ₹{{ t.amount }}</td>
+        {% else %}
+          <td class="amount trans-income">+ ₹{{ t.amount }}</td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  {% endif %}
+</tbody>
+</table>
+</div>
+
+<div class="charts-section">
+  <h2>Spending Overview</h2>
+  <div class="chart-container">
+    <canvas id="spendingChart"></canvas>
+  </div>
+</div>
+
+{% endblock %}
+
+

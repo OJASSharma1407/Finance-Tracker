@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="form-container">
+    <h2>Register</h2>
+    <form  method="post">
+        {% csrf_token %}
+      <input type="text"  name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="/">Login here</a></p>
+    </form>
+</div>
+
+{% if error %}
+    <div class="popup">
+        <p>{{ error }}</p>
+        <span onclick="this.parentElement.style.display='none'" class="close-btn">&times;</span>
+    </div>
+{% endif %}
+
+{% endblock %} 

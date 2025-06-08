@@ -1,0 +1,57 @@
+{% extends 'tracker_base.html' %}
+{% load static %}
+{% block Css %}
+<link rel="stylesheet" href="{% static css %}">
+{% endblock %}
+
+{% block content %}
+            
+<div class="transactions-page">
+
+  <!-- Filter/Search Form -->
+  <form method="POST" class="tx-topbar">
+    {% csrf_token %}
+    <h2>Transactions</h2>
+    <div class="tx-search">
+      <input type="text" name="search" value="{{ search }}" placeholder="Search category…">
+    </div>
+    <div class="tx-filters">
+      <select name="type">
+        <option value="">All Types</option>
+        <option value="Income" {% if type == "Income" %}selected{% endif %}>Income</option>
+        <option value="Expense" {% if type == "Expense" %}selected{% endif %}>Expense</option>
+      </select>
+      <input type="month" name="month" value="{{ month }}">
+      <button type="submit">Apply</button>
+    </div>
+  </form>
+
+  <!-- Transactions Table -->
+  <div class="tx-table-container">
+    <table class="tx-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th class="right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for t in transactions %}
+        <tr>
+          <td>{{ t.date }}</td>
+          <td class="{{ t.transaction_type|lower }}">{{ t.transaction_type }}</td>
+          <td>{{ t.catagory }}</td>
+          <td class="right">₹{{ t.amount }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="no-data">No transactions found.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+{% endblock %}

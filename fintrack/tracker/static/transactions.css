@@ -1,0 +1,100 @@
+/* transactions.css */
+
+.transactions-page {
+  padding: 2rem;
+  background: #f9fafb;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+}
+
+/* Top Bar */
+.tx-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tx-search input,
+.tx-filters select,
+.tx-filters input {
+  padding: 0.6rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.tx-filters button {
+  padding: 0.6rem 1rem;
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+.tx-filters button:hover {
+  background-color: #2563eb;
+}
+
+/* Table Container */
+.tx-table-container {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Transactions Table */
+.tx-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tx-table th,
+.tx-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.95rem;
+}
+
+.tx-table th {
+  background: #f3f4f6;
+  font-weight: 600;
+}
+
+.tx-table td.right {
+  text-align: right;
+}
+
+/* Type coloring */
+.tx-table td.income {
+  color: #10b981;
+}
+.tx-table td.expense {
+  color: #ef4444;
+}
+
+/* No data row */
+.no-data {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .tx-topbar {
+    flex-direction: column;
+  }
+  .tx-filters {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
